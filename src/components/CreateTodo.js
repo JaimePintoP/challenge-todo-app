@@ -1,54 +1,53 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "./CreateTodo.css";
 
-class AddTask extends Component {
+class CreateTodo extends Component {
   state = {
-    title: undefined,
-    body: undefined,
+    title: "",
+    body: "",
   };
 
-  handleChange = (event) => {
+  handlerChange = (event) => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
 
-  handleFormSubmit = (event) => {
+  handlerFormSubmit = (event) => {
     event.preventDefault();
     const { title, body } = this.state;
     axios
       .post("http://localhost:4000/api/v1/todos", { title, body })
       .then(() => {
         this.setState({ title: "", body: "" });
-        this.props.getTasks();
+        this.props.getTodos();
       })
       .catch((err) => console.log(err));
   };
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleFormSubmit}>
+      <div className="form-container">
+        <form className="create-form" onSubmit={this.handlerFormSubmit}>
           <label>Title:</label>
           <input
             type="text"
             name="title"
             value={this.state.title}
-            onChange={(e) => this.handleChange(e)}
+            onChange={this.handlerChange}
           />
-          <label>Desription:</label>
+          <label>Description:</label>
           <input
             type="text"
             name="body"
             value={this.state.body}
-            onChange={(e) => this.handleChange(e)}
+            onChange={this.handlerChange}
           />
-          <button className="form-button" type="submit" value="Submit">
-            Add
-          </button>
+          <button type="submit">Add</button>
         </form>
       </div>
     );
   }
 }
 
-export default AddTask;
+export default CreateTodo;

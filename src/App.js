@@ -1,49 +1,47 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import Todo from "./components/Todo";
+import CreateTodo from "./components/CreateTodo";
 import axios from "axios";
-import AddTask from "./components/AddTask";
-import Task from "./components/Task";
 
 class App extends Component {
   state = {
-    myListArr: [],
+    todosArr: [],
   };
 
   componentDidMount() {
-    this.getTasks();
+    this.getTodos();
   }
 
-  getTasks = () => {
+  getTodos = () => {
     axios
       .get("http://localhost:4000/api/v1/todos")
       .then((response) => {
-        const myListArr = response.data;
-        this.setState({ myListArr });
+        this.setState({ todosArr: response.data });
       })
       .catch((err) => console.log(err));
   };
 
   render() {
     return (
-      <div>
+      <div className="App">
         <h1>To-do List</h1>
-        <h3>Add a new task</h3>
-        <AddTask getTasks={this.getTasks} />
-        <section>
-          <h3>Your To-do list</h3>
-          {this.state.myListArr && this.state.myListArr.length > 0 ? (
-            this.state.myListArr.map((task) => {
-              return (
-                <div>
-                  <Task getTasks={this.getTasks} task={task} />
-                </div>
-              );
-            })
-          ) : (
-            <p className="no-posts">You don't have any task, create one </p>
-          )}
-        </section>
+        <div className="components-container">
+          <div className="todos-container">
+            {this.state.todosArr.length > 0 ? (
+              this.state.todosArr.map((todo) => {
+                return (
+                  <Todo className="todo" getTodos={this.getTodos} todo={todo} />
+                );
+              })
+            ) : (
+              <p>Add a to-do!</p>
+            )}
+          </div>
+          <div className="create-container">
+            <CreateTodo getTodos={this.getTodos} />
+          </div>
+        </div>
       </div>
     );
   }
