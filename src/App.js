@@ -28,10 +28,17 @@ class App extends Component {
         <h1>To-do List</h1>
         <div className="components-container">
           <div className="todos-container">
+            <h3>Your tasks</h3>
             {this.state.todosArr.length > 0 ? (
               this.state.todosArr.map((todo) => {
                 return (
-                  <Todo className="todo" getTodos={this.getTodos} todo={todo} />
+                  <div>
+                    <Todo
+                      className="todo"
+                      getTodos={this.getTodos}
+                      todo={todo}
+                    />
+                  </div>
                 );
               })
             ) : (

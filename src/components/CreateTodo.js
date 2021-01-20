@@ -28,6 +28,7 @@ class CreateTodo extends Component {
   render() {
     return (
       <div className="form-container">
+        <h3>Create a new task</h3>
         <form className="create-form" onSubmit={this.handlerFormSubmit}>
           <label>Title:</label>
           <input

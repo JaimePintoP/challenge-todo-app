@@ -46,20 +46,25 @@ class Todo extends Component {
     return (
       <div>
         {this.state.toggle ? (
-          <ShowTodo
-            title={this.props.todo.title}
-            body={this.props.todo.body}
-            handlerDelete={this.handlerDelete}
-            handlerToggle={this.handlerToggle}
-          />
+          <div>
+            <ShowTodo
+              title={this.props.todo.title}
+              body={this.props.todo.body}
+              handlerDelete={this.handlerDelete}
+              handlerToggle={this.handlerToggle}
+            />
+          </div>
         ) : (
-          <EditTodo
-            todo={this.props.todo}
-            handlerToggle={this.handlerToggle}
-            handlerFormSubmit={this.handlerFormSubmit}
-            handlerChange={this.handlerChange}
-            getTodos={this.props.getTodos}
-          />
+          <div>
+            <h3>Edit task</h3>
+            <EditTodo
+              todo={this.props.todo}
+              handlerToggle={this.handlerToggle}
+              handlerFormSubmit={this.handlerFormSubmit}
+              handlerChange={this.handlerChange}
+              getTodos={this.props.getTodos}
+            />
+          </div>
         )}
       </div>
     );
